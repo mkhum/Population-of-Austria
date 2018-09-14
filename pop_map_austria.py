@@ -48,35 +48,35 @@ if bGetDataWikidata:
 
 df = pd.read_csv('data.csv')
 bPlot=1
+bNames=0
+bLegend=0
 if bPlot:
-    bNames=0
+
 
     fig = plt.figure(figsize=(22, 12))
 
     ax = fig.add_subplot(111)
     plt.axis('off')
     ax.scatter(x=df['long'].values,y=df['lat'].values,s=df['pop'].values/100,alpha=0.5,linewidths=0)
-    #ax.set_aspect(.8)
-    #print(df.index.values)
-    #print(df['long'].values)
-    x_legend=[11,11,11,11,11]
-    y_legend=[48.5,48.15,48,47.9,47.8]
-    s_legend=[10000,1000,100,10,1]
-    s_slegend=[]
-    for entry in s_legend:
-        s_slegend.append(str(entry*100))
-    ax.scatter(x=x_legend,y=y_legend,s=s_legend,alpha=0.5,linewidths=0)
-    for label, x, y in zip(s_slegend, x_legend, y_legend):
-        plt.annotate(
-            label,fontsize=1,
-            xy=(x, y), xytext=(50, 0),size=15,
-            textcoords='offset points',arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
+    if bLegend:
+        x_legend=[11,11,11,11,11]
+        y_legend=[48.5,48.15,48,47.9,47.8]
+        s_legend=[10000,1000,100,10,1]
+        s_slegend=[]
+        for entry in s_legend:
+            s_slegend.append(str(entry*100))
+        ax.scatter(x=x_legend,y=y_legend,s=s_legend,alpha=0.5,linewidths=0)
+        for label, x, y in zip(s_slegend, x_legend, y_legend):
+            plt.annotate(
+                label,fontsize=1,
+                xy=(x, y), xytext=(50, 0),size=15,
+                textcoords='offset points',arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
     if bNames:
         for label, x, y in zip(df['Name'].values, df['long'].values, df['lat'].values):
             plt.annotate(
                 label,fontsize=1,
                 xy=(x, y), xytext=(0, 0),
                 textcoords='offset points')
-    fig.savefig("map_test.pdf")
+    fig.savefig("map.pdf")
 
 #plt.show()
